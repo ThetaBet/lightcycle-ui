@@ -1,0 +1,36 @@
+{
+  "name": "light-cycle",
+  "version": "0.0.0",
+  "type": "module",
+  "description": "A CSS-first, time-driven UI lighting system.",
+  "main": "dist/lightcycle-ui.umd.js",
+  "module": "dist/lightcycle-ui.esm.js",
+  "unpkg": "dist/lightcycle-ui.umd.min.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist/",
+    "src/",
+    "README.md"
+  ],
+  "scripts": {
+    "dev": "vite",
+    "build": "rollup -c",
+    "build:dev": "rollup -c --watch",
+    "prepare": "npm run build",
+    "lint": "eslint src/**/*.js",
+    "lint:fix": "eslint src/**/*.js --fix",
+    "test": "echo \"No tests configured\""
+  },
+  "keywords": ["light", "ui", "web-components", "css", "lighting"],
+  "author": "Thomas Bellardone",
+  "license": "MIT",
+  "devDependencies": {
+    "rollup": "^3.0.0",
+    "@rollup/plugin-node-resolve": "^15.0.0",
+    "@rollup/plugin-commonjs": "^24.0.0",
+    "@rollup/plugin-babel": "^6.0.0",
+    "@rollup/plugin-terser": "^0.4.0",
+    "eslint": "^8.0.0",
+    "vite": "^5.0.0"
+  }
+}

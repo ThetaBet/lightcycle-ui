@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LightCycle UI - Dev Test</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, sans-serif;
+      padding: 2rem;
+      background: #1a1a1a;
+      color: white;
+    }
+
+    h1 {
+      margin-bottom: 2rem;
+    }
+
+    .demo {
+      display: flex;
+      gap: 2rem;
+      width: 100%;
+      justify-content: center;
+      align-items: center;
+      margin: 20px;
+    }
+
+    reflection-surface {
+      display: block;
+      width: 300px;
+      height: 200px;
+      padding: 2rem;
+      border-radius: 12px;
+    }
+
+    /* Debug: mostra il valore della variabile CSS */
+    .time-display::before {
+      content: 'Time: ' var(--lc-time, '0');
+    }
+  </style>
+    <script type="module">
+      import './src/index.js';
+
+      // Debug: ascolta i cambiamenti di tempo
+      document.addEventListener('lc:wheelchange', (e) => {
+        console.log('Time changed:', e.detail.time);
+      });
+    </script>
+</head>
+<body>
+  <sky-layer>
+      <div class="demo">
+        <div class="info time-display">
+          <reflection-surface style="background-color: blue;" type="glass"  reflectivity="0.5" roughness="0.2">
+            <h2>Glass Surface Test</h2>
+            <p>Reflectivity: 0.5, Roughness: 0.2</p>
+          </reflection-surface>
+        </div>
+      
+        <div class="info">
+          <reflection-surface style="background-color: brown;" type="matte" reflectivity="0.8" roughness="0.1">
+            <h2>Matte Surface Test</h2>
+            <p>Reflectivity: 0.8, Roughness: 0.1</p>
+          </reflection-surface>
+        </div>
+
+        <div class="info">
+        <reflection-surface style="background-color: brown;" type="lucid" reflectivity="0.8" roughness="0.1">
+          <h2>Lucid Surface Test</h2>
+          <p>Reflectivity: 0.8, Roughness: 0.1</p>
+        </reflection-surface>
+        </div>
+      </div>
+  </sky-layer>
+  <light-controller mode="manual" tick="1000" clock="analog"></light-controller>
+</body>
+</html>
