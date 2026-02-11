@@ -15,7 +15,7 @@
   - mix-blend-mode: screen
 */
 
-import { css, html } from '../utils/tag';
+import { css, html } from '../../utils/tag';
 import ShadowBox from './shadow-Box';
 
 const ATTRIBUTES = {
@@ -43,11 +43,27 @@ export class ReflectionSurface extends ShadowBox {
       :host([type="glass"])::before {
         content: '';
         position: absolute;
-        inset: 0;
+        top: -50%;
+        left: -50%;
+        width: 200%;
+        height: 200%;
+        background: linear-gradient(
+          115deg,
+          transparent 40%,
+          rgba(255, 255, 255, calc(0.3 * var(--lc-light-intensity))) 40.5%,
+          rgba(255, 255, 255, calc(0.3 * var(--lc-light-intensity))) 42%,
+          transparent 42.5%,
+          transparent 45%,
+          rgba(255, 255, 255, calc(0.2 * var(--lc-light-intensity))) 45.5%,
+          rgba(255, 255, 255, calc(0.2 * var(--lc-light-intensity))) 46%,
+          transparent 46.5%
+        );
         pointer-events: none;
-        border: 1px solid rgba(255, 255, 255, 0.25);
-        opacity: calc(var(--sun-elevation, 1) * 0.6);
-        z-index: 2;
+        transform: translateX(calc(var(--lc-light-x) * 15%));
+        // inset: 0;
+        // border: 1px solid rgba(255, 255, 255, 0.25);
+        // opacity: calc(var(--sun-elevation, 1) * 0.6);
+        // z-index: 2;
       }
       :host([type="glass"])::after {
         content: '';
@@ -167,6 +183,13 @@ export class ReflectionSurface extends ShadowBox {
     super.connectedCallback();
     this.reflectiveSurface = this.shadowRoot.querySelector('.lc-box');
     if (this.type) this.reflectiveSurface.classList.add(`${this.type}`);
+    const computedStyle = getComputedStyle(this);
+    console.log('Computed background color:', computedStyle.backgroundColor);
+    const userBg = computedStyle.backgroundColor;
+    if (userBg && userBg !== 'rgba(0, 0, 0, 0)' && userBg !== 'transparent') {
+      this.style.setProperty('--current-bg', userBg);
+      this.style.backgroundColor = 'transparent';
+    }
   }
 
   attributeCahangedCallback(name, oldValue, newValue) {

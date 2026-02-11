@@ -1,3 +1,5 @@
+import typescript from '@rollup/plugin-typescript';
+
 export default [
   {
     input: 'src/index.js',
@@ -7,6 +9,7 @@ export default [
       sourcemap: true
     },
     plugins: [
+      typescript({ tsconfig: './tsconfig.json', sourceMap: true })
     ]
   },
   {
@@ -18,6 +21,7 @@ export default [
       sourcemap: true
     },
     plugins: [
+      typescript({ tsconfig: './tsconfig.json', sourceMap: true })
     ]
   }
 ];

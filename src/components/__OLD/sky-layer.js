@@ -7,9 +7,9 @@
   - Should be replaceable by users
 */
 
-import { getBottomColors, getphasesWeight, getSkyColors, getStarColor, getStarPosition, getStarSize, getTopColors } from '../utils/light';
-import { css, html } from '../utils/tag';
-import BaseComponent from './base-component';
+import { getBottomColors, getphasesWeight, getSkyColors, getStarColor, getStarPosition, getStarSize, getTopColors } from '../../utils/light';
+import { css, html } from '../../utils/tag';
+import BaseComponent from '../base-component';
 
 export class SkyLayer extends BaseComponent {
   constructor() {
@@ -36,7 +36,6 @@ export class SkyLayer extends BaseComponent {
         left: 0;
         width: 100vw;
         height: 100vh;
-        pointer-events: none;
         z-index: -1;
         transition: background 2s ease-out;
       }

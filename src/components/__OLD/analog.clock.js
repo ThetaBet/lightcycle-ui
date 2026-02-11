@@ -1,6 +1,6 @@
-import { PREFIX } from '../utils/slugs';
-import { getSplittedTime } from '../utils/time';
-import BaseComponent from './base-component';
+import { PREFIX } from '../../utils/slugs';
+import { getSplittedTime } from '../../utils/time';
+import BaseComponent from '../base-component';
 
 const ATTRIBUTES = {
   TIME: 'time',

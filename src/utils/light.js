@@ -1,3 +1,5 @@
+import { css } from './templateTag';
+
 export const getLightIntensity = (time) => {
   const elevation = Math.sin((time - 0.25) * 2 * Math.PI);
   return Math.pow(Math.max(0, elevation), 0.6);
@@ -44,7 +46,7 @@ export const getStarColor = () => {
 };
 
 export const getDayPhasesColor = () => {
-  return `
+  return css`
     --night-top: 4 6 12;
     --night-bottom: 10 12 24;
     --dawn-top: 90 80 140;
@@ -57,7 +59,7 @@ export const getDayPhasesColor = () => {
 };
 
 export const getphasesWeight = () => {
-  return `
+  return css`
     --dist-midnight: min(var(--lc-time-perceived), calc(1 - var(--lc-time-perceived)));
     --w-night: clamp(0, 1 - var(--dist-midnight) * 5, 1);
     --w-dawn: clamp(0, 1 - abs(var(--lc-time-perceived) - 0.23) * 8, 1);
@@ -72,7 +74,7 @@ export const getphasesWeight = () => {
 };
 
 export const getTopColors = () => {
-  return `
+  return css`
     --sky-top-r: calc(
       var(--wnight) * 4 +
       var(--wdawn) * 60 +
@@ -95,7 +97,7 @@ export const getTopColors = () => {
 };
 
 export const getBottomColors = () => {
-  return `
+  return css`
     --sky-bottom-r: calc(
       var(--wnight) * 10 +
       var(--wdawn) * 240 +
@@ -118,7 +120,7 @@ export const getBottomColors = () => {
 };
 
 export const getSkyColors = () => {
-  return `
+  return css`
     background: linear-gradient(
       to bottom,
       rgb(
@@ -132,4 +134,14 @@ export const getSkyColors = () => {
         clamp(0, var(--sky-bottom-b), 255)
     ));
   `;
+};
+
+export const getSunInfos = () => {
+  return css`
+    --sun-progress: calc((var(--lc-time, 0) - 0.25) * 2);
+    --sun-x: calc(5% + var(--sun-progress) * 90%);
+    --sun-y: calc(85% - var(--sun-elevation) * 65%);
+    --sun-elevation: pow(var(--lc-light-intensity, 0), 0.8);
+    --sun-size: calc(40px + (1 - var(--sun-elevation, 0)) * 60px);
+    `;
 };

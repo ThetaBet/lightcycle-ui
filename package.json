@@ -1,5 +1,5 @@
 {
-  "name": "light-cycle",
+  "name": "vide",
   "version": "0.0.0",
   "type": "module",
   "description": "A CSS-first, time-driven UI lighting system.",
@@ -14,7 +14,8 @@
   ],
   "scripts": {
     "dev": "vite",
-    "build": "rollup -c",
+    "build:types": "tsc -p tsconfig.json --emitDeclarationOnly",
+    "build": "npm run build:types && rollup -c",
     "build:dev": "rollup -c --watch",
     "prepare": "npm run build",
     "lint": "eslint src/**/*.js",
@@ -30,6 +31,8 @@
     "@rollup/plugin-commonjs": "^24.0.0",
     "@rollup/plugin-babel": "^6.0.0",
     "@rollup/plugin-terser": "^0.4.0",
+    "@rollup/plugin-typescript": "^12.0.0",
+    "typescript": "^5.1.0",
     "eslint": "^8.0.0",
     "vite": "^5.0.0"
   }

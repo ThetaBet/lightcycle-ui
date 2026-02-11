@@ -1,32 +1,31 @@
-import LightController from './components/light-controller.js';
-import SkyLayer from './components/sky-layer.js';
-import ReflectionSurface from './components/reflection-surface.js';
-import AnalogClock from './components/analog.clock.js';
-import DigitalClock from './components/digital-clock.js';
-import DigitalCypher from './components/digital-cypher.js';
+import { VideReflectionSurface } from './components/VideReflectionSurface';
+import { VideDigitalClock, VideDigitalCypher } from './components/VideDigitalClock';
+import { VideAnalogClock } from './components/videAnalogClock';
+import { VideLightController } from './components/VideLightController';
+import { VideSkyLayer } from './components/VideSkyLayer';
 
 if (!customElements.get('light-controller')) {
-  customElements.define('light-controller', LightController);
+  customElements.define('light-controller', VideLightController);
 }
 
 if (!customElements.get('analog-clock')) {
-  customElements.define('analog-clock', AnalogClock);
+  customElements.define('analog-clock', VideAnalogClock);
 }
 
 if (!customElements.get('digital-cypher')) {
-  customElements.define('digital-cypher', DigitalCypher);
+  customElements.define('digital-cypher', VideDigitalCypher);
 }
 
 if (!customElements.get('digital-clock')) {
-  customElements.define('digital-clock', DigitalClock);
+  customElements.define('digital-clock', VideDigitalClock);
 }
 
 if (!customElements.get('sky-layer')) {
-  customElements.define('sky-layer', SkyLayer);
+  customElements.define('sky-layer', VideSkyLayer);
 }
 
 if (!customElements.get('reflection-surface')) {
-  customElements.define('reflection-surface', ReflectionSurface);
+  customElements.define('reflection-surface', VideReflectionSurface);
 }
 
-export { LightController, SkyLayer, ReflectionSurface, AnalogClock };
+export { VideLightController, VideReflectionSurface, VideAnalogClock, VideDigitalClock, VideDigitalCypher };

@@ -15,10 +15,19 @@ export function perceptualDayTime(t, slope = 10) {
   }
 }
 
-export function getSplittedTime(time) {
+export function getSplittedTime(time, is24Hour = false) {
   return {
-    hours: time.getHours() % 12,
+    hours: is24Hour ? time.getHours() : time.getHours() % 12,
     minutes: time.getMinutes(),
     seconds: time.getSeconds()
+  };
+}
+
+export function getPaddedSplittedTime(time, is24Hour = false) {
+  const { hours, minutes, seconds } = getSplittedTime(time, is24Hour);
+  return {
+    hours: hours.toString().padStart(2, '0'),
+    minutes: minutes.toString().padStart(2, '0'),
+    seconds: seconds.toString().padStart(2, '0')
   };
 }
