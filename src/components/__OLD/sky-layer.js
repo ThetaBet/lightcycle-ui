@@ -8,7 +8,7 @@
 */
 
 import { getBottomColors, getphasesWeight, getSkyColors, getStarColor, getStarPosition, getStarSize, getTopColors } from '../../utils/light';
-import { css, html } from '../../utils/tag';
+import { css, html } from './tag';
 import BaseComponent from '../base-component';
 
 export class SkyLayer extends BaseComponent {

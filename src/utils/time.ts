@@ -1,7 +1,7 @@
-export function perceptualDayTime(t, slope = 10) {
+export function perceptualDayTime(t: number, slope = 10) {
   t = t % 1;
   if (t < 0) t += 1;
-  const sigmoid = (x, k) => {
+  const sigmoid = (x: number, k: number) => {
     const powX = Math.pow(x, k);
     const powInvX = Math.pow(1 - x, k);
     return powX / (powX + powInvX);
@@ -15,7 +15,7 @@ export function perceptualDayTime(t, slope = 10) {
   }
 }
 
-export function getSplittedTime(time, is24Hour = false) {
+export function getSplittedTime(time: Date, is24Hour = false) {
   return {
     hours: is24Hour ? time.getHours() : time.getHours() % 12,
     minutes: time.getMinutes(),
@@ -23,7 +23,7 @@ export function getSplittedTime(time, is24Hour = false) {
   };
 }
 
-export function getPaddedSplittedTime(time, is24Hour = false) {
+export function getPaddedSplittedTime(time: Date, is24Hour = false) {
   const { hours, minutes, seconds } = getSplittedTime(time, is24Hour);
   return {
     hours: hours.toString().padStart(2, '0'),

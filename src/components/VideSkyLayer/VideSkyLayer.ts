@@ -1,3 +1,4 @@
+import { GLOBAL_STYLE_VARIABLES } from "../../utils/global/types";
 import {
   getBottomColors,
   getphasesWeight,
@@ -49,7 +50,7 @@ export default class VideSkyLayer extends VideElement {
         0 0 60px 30px #fffbe6,
         0 0 120px 60px #ffd700;
       pointer-events: none;
-      opacity: calc(var(--lc-light-intensity, 0));
+      opacity: calc(var(${GLOBAL_STYLE_VARIABLES.LIGHT_INTENSITY}, 0));
       z-index: -1;
     }
 
@@ -57,7 +58,7 @@ export default class VideSkyLayer extends VideElement {
       position: absolute;
       width: 100%;
       height: 100%;
-      opacity: calc(1 - var(--lc-light-intensity, 0) * 2);
+      opacity: calc(1 - var(${GLOBAL_STYLE_VARIABLES.LIGHT_INTENSITY}, 0) * 2);
       transition: opacity 2s ease-out;
       z-index: -1;
     }

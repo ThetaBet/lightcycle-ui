@@ -1,3 +1,4 @@
+import { GLOBAL_STYLE_VARIABLES } from "../../utils/global/types";
 import { getLightIntensity, getLightPosition, getLightTemperature } from "../../utils/light";
 import { perceptualDayTime } from "../../utils/time";
 import { VideAnalogClock } from "../videAnalogClock";
@@ -5,7 +6,7 @@ import { VideDigitalClock } from "../VideDigitalClock";
 import { VIDE_DIGITAL_CLOCK_MODE } from "../VideDigitalClock/types";
 import { VideElement } from "../VideElement";
 import { defaultFontConfig } from "./constants";
-import { FontObjectAttribute, VIDE_LIGHT_CONTROLLER_ATTR, VIDE_LIGHT_CONTROLLER_CLOCK, VIDE_LIGHT_CONTROLLER_EVENT, VIDE_LIGHT_CONTROLLER_MODE, VIDE_LIGHT_CONTROLLER_STYLE_VARIABLES } from "./types";
+import { FontObjectAttribute, VIDE_LIGHT_CONTROLLER_ATTR, VIDE_LIGHT_CONTROLLER_CLOCK, VIDE_LIGHT_CONTROLLER_EVENT, VIDE_LIGHT_CONTROLLER_MODE } from "./types";
 
 export default class VideLightController extends VideElement {
   static get observedAttributes(): string[] {
@@ -20,77 +21,77 @@ export default class VideLightController extends VideElement {
 
   set globalTime(value: number) {
     document.documentElement.style.setProperty(
-      VIDE_LIGHT_CONTROLLER_STYLE_VARIABLES.TIME,
+      GLOBAL_STYLE_VARIABLES.TIME,
       value.toString(),
     );
   }
 
   set globalTimePerceived(value: number) {
     document.documentElement.style.setProperty(
-      VIDE_LIGHT_CONTROLLER_STYLE_VARIABLES.TIME_PERCEIVED,
+      GLOBAL_STYLE_VARIABLES.TIME_PERCEIVED,
       value.toString(),
     );
   }
 
   set globalDayProgress(value: number) {
     document.documentElement.style.setProperty(
-      VIDE_LIGHT_CONTROLLER_STYLE_VARIABLES.DAY_PROGRESS,
+      GLOBAL_STYLE_VARIABLES.DAY_PROGRESS,
       value.toString(),
     );
   }
 
   set globalLightIntensity(value: number) {
     document.documentElement.style.setProperty(
-      VIDE_LIGHT_CONTROLLER_STYLE_VARIABLES.LIGHT_INTENSITY,
+      GLOBAL_STYLE_VARIABLES.LIGHT_INTENSITY,
       value.toString(),
     );
   }
 
   set globalLightTemperature(value: number) {
     document.documentElement.style.setProperty(
-      VIDE_LIGHT_CONTROLLER_STYLE_VARIABLES.LIGHT_TEMPERATURE,
+      GLOBAL_STYLE_VARIABLES.LIGHT_TEMPERATURE,
       value.toString(),
     );
   }
 
   set globalLightX(value: number) {
     document.documentElement.style.setProperty(
-      VIDE_LIGHT_CONTROLLER_STYLE_VARIABLES.LIGHT_X,
+      GLOBAL_STYLE_VARIABLES.LIGHT_X,
       value.toString(),
     );
   }
 
   set globalLightY(value: number) {
     document.documentElement.style.setProperty(
-      VIDE_LIGHT_CONTROLLER_STYLE_VARIABLES.LIGHT_Y,
+      GLOBAL_STYLE_VARIABLES.LIGHT_Y,
       value.toString(),
     );
   }
 
   set globalLightFront(value: number) {
     document.documentElement.style.setProperty(
-      VIDE_LIGHT_CONTROLLER_STYLE_VARIABLES.LIGHT_FRONT,
+      GLOBAL_STYLE_VARIABLES.LIGHT_FRONT,
       value.toString(),
     );
   }
 
   set globalLightBack(value: number) {
     document.documentElement.style.setProperty(
-      VIDE_LIGHT_CONTROLLER_STYLE_VARIABLES.LIGHT_BACK,
+      GLOBAL_STYLE_VARIABLES.LIGHT_BACK,
       value.toString(),
     );
   }
 
   set globalFontTitle(value: string) {
     document.documentElement.style.setProperty(
-      VIDE_LIGHT_CONTROLLER_STYLE_VARIABLES.FONT_TITLE,
+      GLOBAL_STYLE_VARIABLES.FONT_TITLE,
       value,
     );
   }
 
   set globalFontBody(value: string) {
     document.documentElement.style.setProperty(
-      VIDE_LIGHT_CONTROLLER_STYLE_VARIABLES.FONT_BODY,
+      GLOBAL_STYLE_VARIABLES.FONT_BODY,
       value,
     );
   }

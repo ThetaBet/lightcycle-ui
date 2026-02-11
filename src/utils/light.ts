@@ -1,11 +1,12 @@
+import { GLOBAL_STYLE_VARIABLES } from './global/types';
 import { css } from './templateTag';
 
-export const getLightIntensity = (time) => {
+export const getLightIntensity = (time: number): number => {
   const elevation = Math.sin((time - 0.25) * 2 * Math.PI);
   return Math.pow(Math.max(0, elevation), 0.6);
 };
 
-export const getLightTemperature = (time) => {
+export const getLightTemperature = (time: number): number => {
   const elevation = Math.sin((time - 0.25) * 2 * Math.PI);
   const minTemp = 2000;
   const maxTemp = 6500;
@@ -13,7 +14,13 @@ export const getLightTemperature = (time) => {
   return Math.round(temp);
 };
 
-export const getLightPosition = (time) => {
+export const getLightPosition = (time: number): {
+  x: number;
+  y: number;
+  lightBack: number;
+  lightFront: number;
+  elevation: number;
+} => {
   const full = time * 2 * Math.PI;
   const day = (time - 0.25) * Math.PI;
   const x = Math.sin(full);
@@ -29,23 +36,23 @@ export const getLightPosition = (time) => {
   };
 };
 
-export const getStarSize = () => {
+export const getStarSize = (): string => {
   const magnitude = Math.random() * 2 + 1;
   return `${magnitude}px ${magnitude}px`;
 };
 
-export const getStarPosition = () => {
+export const getStarPosition = (): string => {
   const x = Math.random() * 100;
   const y = Math.random() * 100;
   return `${x}% ${y}%`;
 };
 
-export const getStarColor = () => {
+export const getStarColor = (): string => {
   const colors = ['white', 'lightyellow', 'lightblue', 'lightgray'];
   return colors[Math.floor(Math.random() * colors.length)];
 };
 
-export const getDayPhasesColor = () => {
+export const getDayPhasesColor = (): string => {
   return css`
     --night-top: 4 6 12;
     --night-bottom: 10 12 24;
@@ -58,13 +65,13 @@ export const getDayPhasesColor = () => {
   `;
 };
 
-export const getphasesWeight = () => {
+export const getphasesWeight = (): string => {
   return css`
-    --dist-midnight: min(var(--lc-time-perceived), calc(1 - var(--lc-time-perceived)));
+    --dist-midnight: min(var(${GLOBAL_STYLE_VARIABLES.TIME_PERCEIVED}), calc(1 - var(${GLOBAL_STYLE_VARIABLES.TIME_PERCEIVED})));
     --w-night: clamp(0, 1 - var(--dist-midnight) * 5, 1);
-    --w-dawn: clamp(0, 1 - abs(var(--lc-time-perceived) - 0.23) * 8, 1);
-    --w-day: clamp(0, 1 - abs(var(--lc-time-perceived) - 0.5) * 2, 1);
-    --w-dusk: clamp(0, 1 - abs(var(--lc-time-perceived) - 0.77) * 10, 1);
+    --w-dawn: clamp(0, 1 - abs(var(${GLOBAL_STYLE_VARIABLES.TIME_PERCEIVED}) - 0.23) * 8, 1);
+    --w-day: clamp(0, 1 - abs(var(${GLOBAL_STYLE_VARIABLES.TIME_PERCEIVED}) - 0.5) * 2, 1);
+    --w-dusk: clamp(0, 1 - abs(var(${GLOBAL_STYLE_VARIABLES.TIME_PERCEIVED}) - 0.77) * 10, 1);
     --w-sum: calc(var(--w-night) + var(--w-dawn) + var(--w-day) + var(--w-dusk));
     --wnight: calc(var(--w-night) / var(--w-sum));
     --wdawn: calc(var(--w-dawn) / var(--w-sum));
@@ -73,7 +80,7 @@ export const getphasesWeight = () => {
   `;
 };
 
-export const getTopColors = () => {
+export const getTopColors = (): string => {
   return css`
     --sky-top-r: calc(
       var(--wnight) * 4 +
@@ -96,7 +103,7 @@ export const getTopColors = () => {
   `;
 };
 
-export const getBottomColors = () => {
+export const getBottomColors = (): string => {
   return css`
     --sky-bottom-r: calc(
       var(--wnight) * 10 +
@@ -119,7 +126,7 @@ export const getBottomColors = () => {
   `;
 };
 
-export const getSkyColors = () => {
+export const getSkyColors = (): string => {
   return css`
     background: linear-gradient(
       to bottom,
@@ -136,12 +143,12 @@ export const getSkyColors = () => {
   `;
 };
 
-export const getSunInfos = () => {
+export const getSunInfos = (): string => {
   return css`
-    --sun-progress: calc((var(--lc-time, 0) - 0.25) * 2);
+    --sun-progress: calc((var(${GLOBAL_STYLE_VARIABLES.TIME}, 0) - 0.25) * 2);
     --sun-x: calc(5% + var(--sun-progress) * 90%);
     --sun-y: calc(85% - var(--sun-elevation) * 65%);
-    --sun-elevation: pow(var(--lc-light-intensity, 0), 0.8);
+    --sun-elevation: pow(var(${GLOBAL_STYLE_VARIABLES.LIGHT_INTENSITY}, 0), 0.8);
     --sun-size: calc(40px + (1 - var(--sun-elevation, 0)) * 60px);
     `;
 };

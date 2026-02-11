@@ -40,11 +40,11 @@
     }
 
     .time-display::before {
-      content: 'Time: ' var(--lc-time, '0');
+      content: 'Time: ' var(--vd-time, '0');
     }
   </style>
     <script type="module">
-      import './src/index.js';
+      import './src/index.ts';
 
       document.addEventListener('lc:wheelchange', (e) => {
         console.log('Time changed:', e.detail.time);

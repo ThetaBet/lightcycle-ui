@@ -1,3 +1,4 @@
+import { GLOBAL_STYLE_VARIABLES } from "../../utils/global/types";
 import { css, html } from "../../utils/templateTag";
 import { getSplittedTime } from "../../utils/time";
 import { VideElement } from "../VideElement";
@@ -85,7 +86,7 @@ export default class VideAnalogClock extends VideElement {
     }));
   }
 
-  styles: CSSStyleSheet = css`
+  styles = css`
     .clock {
       position: fixed;
       bottom: 12px;
@@ -101,7 +102,7 @@ export default class VideAnalogClock extends VideElement {
       position: absolute;
       width: 50%;
       height: 2px;
-      background: var(--lc-light-color, #000);
+      background: var(${GLOBAL_STYLE_VARIABLES.LIGHT_COLOR}, #000);
       top: 50%;
       left: 50%;
       transform-origin: 0% 50%;
@@ -120,7 +121,7 @@ export default class VideAnalogClock extends VideElement {
     .hand.second {
       height: 1px;
       width: 50%;
-      background: var(--lc-accent-color, #f00);
+      background: var(${GLOBAL_STYLE_VARIABLES.ACCENT_COLOR}, #f00);
       transition: none;
       box-shadow: 0 0 1px rgba(0, 0, 0, 0.1);
       transition: transform 1s linear;

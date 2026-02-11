@@ -15,7 +15,7 @@
   - mix-blend-mode: screen
 */
 
-import { css, html } from '../../utils/tag';
+import { css, html } from './tag';
 import ShadowBox from './shadow-Box';
 
 const ATTRIBUTES = {

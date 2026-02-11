@@ -1,3 +1,4 @@
+import { GLOBAL_STYLE_VARIABLES } from "../../utils/global/types";
 import { css, html } from "../../utils/templateTag";
 import { VideShadowBox } from "../VideShadowBox";
 import { VIDE_REFLECTION_SURFACE_ATTR, VIDE_REFLECTION_SURFACE_TYPE } from "./types";
@@ -29,7 +30,7 @@ export default class VideReflectionSurface extends VideShadowBox {
   }
 
   /*
-    linear-gradient degrees: calc(atan2(var(--lc-light-y), var(--lc-light-x)) + 90deg),
+    linear-gradient degrees: calc(atan2(var(${GLOBAL_STYLE_VARIABLES.LIGHT_Y}), var(${GLOBAL_STYLE_VARIABLES.LIGHT_X})) + 90deg),
   */
 
   styles = css`
@@ -44,16 +45,16 @@ export default class VideReflectionSurface extends VideShadowBox {
       background: linear-gradient(
         115deg,
         transparent 40%,
-        rgba(255, 255, 255, calc(0.3 * var(--lc-light-intensity))) 40.5%,
-        rgba(255, 255, 255, calc(0.3 * var(--lc-light-intensity))) 42%,
+        rgba(255, 255, 255, calc(0.3 * var(${GLOBAL_STYLE_VARIABLES.LIGHT_INTENSITY}))) 40.5%,
+        rgba(255, 255, 255, calc(0.3 * var(${GLOBAL_STYLE_VARIABLES.LIGHT_INTENSITY}))) 42%,
         transparent 42.5%,
         transparent 45%,
-        rgba(255, 255, 255, calc(0.2 * var(--lc-light-intensity))) 45.5%,
-        rgba(255, 255, 255, calc(0.2 * var(--lc-light-intensity))) 46%,
+        rgba(255, 255, 255, calc(0.2 * var(${GLOBAL_STYLE_VARIABLES.LIGHT_INTENSITY}))) 45.5%,
+        rgba(255, 255, 255, calc(0.2 * var(${GLOBAL_STYLE_VARIABLES.LIGHT_INTENSITY}))) 46%,
         transparent 46.5%
       );
       pointer-events: none;
-      transform: translateX(calc(var(--lc-light-x) * 15%));
+      transform: translateX(calc(var(${GLOBAL_STYLE_VARIABLES.LIGHT_X}) * 15%));
     }
     :host([type="glass"])::after {
       content: "";
@@ -72,29 +73,29 @@ export default class VideReflectionSurface extends VideShadowBox {
     }
     :host([type="glass"]) {
       --glass-base: var(--current-bg, rgba(255, 255, 255, 0.1));
-      --rx: calc(-var(--lc-light-x) * 20px);
-      --ry: calc(-var(--lc-light-y) * 20px);
+      --rx: calc(-var(${GLOBAL_STYLE_VARIABLES.LIGHT_X}) * 20px);
+      --ry: calc(-var(${GLOBAL_STYLE_VARIABLES.LIGHT_Y}) * 20px);
       position: relative;
       background-color: oklch(from var(--glass-base) l c h / 0.2) !important;
       background-image: linear-gradient(
-        rgba(255, 255, 255, calc(0.02 + 0.05 * var(--lc-light-intensity))),
+        rgba(255, 255, 255, calc(0.02 + 0.05 * var(${GLOBAL_STYLE_VARIABLES.LIGHT_INTENSITY}))),
         rgba(255, 255, 255, 0.01)
       );
       backdrop-filter: blur(16px);
       box-shadow:
-        inset calc(var(--lc-light-x) * -1px) calc(var(--lc-light-y) * -1px) 0px
-          rgba(255, 255, 255, calc(0.5 * var(--lc-light-intensity))),
-        inset calc(var(--lc-light-x) * 1px) calc(var(--lc-light-y) * 1px) 0px
+        inset calc(var(${GLOBAL_STYLE_VARIABLES.LIGHT_X}) * -1px) calc(var(${GLOBAL_STYLE_VARIABLES.LIGHT_Y}) * -1px) 0px
+          rgba(255, 255, 255, calc(0.5 * var(${GLOBAL_STYLE_VARIABLES.LIGHT_INTENSITY}))),
+        inset calc(var(${GLOBAL_STYLE_VARIABLES.LIGHT_X}) * 1px) calc(var(${GLOBAL_STYLE_VARIABLES.LIGHT_Y}) * 1px) 0px
           rgba(0, 0, 0, 0.1),
-        calc(var(--lc-light-x) * 10px) calc(var(--lc-light-y) * -10px) 20px
+        calc(var(${GLOBAL_STYLE_VARIABLES.LIGHT_X}) * 10px) calc(var(${GLOBAL_STYLE_VARIABLES.LIGHT_Y}) * -10px) 20px
           rgba(0, 0, 0, 0.15),
         inset var(--reflect-x) var(--reflect-y) 10px
-          rgba(255, 255, 255, calc(0.2 * var(--lc-light-intensity)));
+          rgba(255, 255, 255, calc(0.2 * var(${GLOBAL_STYLE_VARIABLES.LIGHT_INTENSITY})));
     }
     :host([type="matte"]) {
       background-image: linear-gradient(
-        calc(atan2(var(--lc-light-y), var(--lc-light-x)) + 90deg),
-        rgba(255, 255, 255, calc(0.5 * var(--lc-light-intensity))),
+        calc(atan2(var(${GLOBAL_STYLE_VARIABLES.LIGHT_Y}), var(${GLOBAL_STYLE_VARIABLES.LIGHT_X})) + 90deg),
+        rgba(255, 255, 255, calc(0.5 * var(${GLOBAL_STYLE_VARIABLES.LIGHT_INTENSITY}))),
         rgba(0, 0, 0, 0.1)
       );
       box-shadow: var(--shadow-x) var(--shadow-y) 25px rgba(0, 0, 0, 0.15);
@@ -107,11 +108,11 @@ export default class VideReflectionSurface extends VideShadowBox {
       --reflection-strength: calc(0.15 + var(--light-warmth) * 0.25);
       position: relative;
       box-shadow:
-        inset calc(var(--lc-light-x) * -1px) calc(var(--lc-light-y) * -1px) 0px
-          rgba(255, 255, 255, calc(0.5 * var(--lc-light-intensity))),
-        inset calc(var(--lc-light-x) * 1px) calc(var(--lc-light-y) * 1px) 0px
+        inset calc(var(${GLOBAL_STYLE_VARIABLES.LIGHT_X}) * -1px) calc(var(${GLOBAL_STYLE_VARIABLES.LIGHT_Y}) * -1px) 0px
+          rgba(255, 255, 255, calc(0.5 * var(${GLOBAL_STYLE_VARIABLES.LIGHT_INTENSITY}))),
+        inset calc(var(${GLOBAL_STYLE_VARIABLES.LIGHT_X}) * 1px) calc(var(${GLOBAL_STYLE_VARIABLES.LIGHT_Y}) * 1px) 0px
           rgba(0, 0, 0, 0.1),
-        calc(var(--lc-light-x) * 10px) calc(var(--lc-light-y) * -10px) 20px
+        calc(var(${GLOBAL_STYLE_VARIABLES.LIGHT_X}) * 10px) calc(var(${GLOBAL_STYLE_VARIABLES.LIGHT_Y}) * -10px) 20px
           rgba(0, 0, 0, 0.15);
     }
     :host([type="lucid"])::before {
@@ -122,14 +123,14 @@ export default class VideReflectionSurface extends VideShadowBox {
       width: 200%;
       height: 200%;
       transform: translate(
-        calc(var(--lc-light-x) * 20%),
-        calc(var(--lc-light-y) * 20%)
+        calc(var(${GLOBAL_STYLE_VARIABLES.LIGHT_X}) * 20%),
+        calc(var(${GLOBAL_STYLE_VARIABLES.LIGHT_Y}) * 20%)
       );
       pointer-events: none;
       opacity: 0.6;
       background: radial-gradient(
         circle at 50% 50%,
-        rgba(255, 255, 255, calc(0.8 * var(--lc-light-intensity))) 0%,
+        rgba(255, 255, 255, calc(0.8 * var(${GLOBAL_STYLE_VARIABLES.LIGHT_INTENSITY}))) 0%,
         rgba(255, 255, 255, 0) 30%
       );
     }

@@ -1,4 +1,4 @@
-import { html } from '../../utils/tag';
+import { html } from './tag';
 import BaseComponent from '../base-component';
 
 export default class ShadowBox extends BaseComponent {

@@ -1,4 +1,4 @@
-import { css, html } from '../../utils/tag';
+import { css, html } from './tag';
 import BaseComponent from '../base-component';
 
 const SEGMENTS = {

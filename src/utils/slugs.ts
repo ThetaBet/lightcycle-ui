@@ -1,2 +1,2 @@
 export const NAME_SPACE = 'lightcycle';
-export const PREFIX = 'lc';
+export const PREFIX = 'vd';
