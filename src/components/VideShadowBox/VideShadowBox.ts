@@ -32,8 +32,9 @@ export default class VideShadowBox extends VideElement {
       );
       position: relative;
       overflow: hidden;
-      width: 100%;
-      height: 100%;
+      width: inherit;
+      height: inherit;
+      border-radius: inherit;
     }
   `;
 

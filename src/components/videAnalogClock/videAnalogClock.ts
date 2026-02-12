@@ -22,7 +22,9 @@ export default class VideAnalogClock extends VideElement {
   }
 
   private get clock(): HTMLDivElement {
-    return this.shadowRoot.querySelector(VIDE_ANALOG_CLOCK_SELECTORS.CLOCK) as HTMLDivElement;
+    return this.shadowRoot.querySelector(
+      VIDE_ANALOG_CLOCK_SELECTORS.CLOCK,
+    ) as HTMLDivElement;
   }
 
   get time(): number {
@@ -50,20 +52,33 @@ export default class VideAnalogClock extends VideElement {
     const hourAngle = (hours + minutes / 60) * 30;
     const minuteAngle = (minutes + seconds / 60) * 6;
     const secondAngle = seconds * 6;
-    if (this.hourHand) this.hourHand.style.transform = `rotate(${hourAngle}deg)`;
-    if (this.minuteHand) this.minuteHand.style.transform = `rotate(${minuteAngle}deg)`;
-    if (this.secondHand) this.secondHand.style.transform = `rotate(${secondAngle}deg)`;
+    if (this.hourHand)
+      this.hourHand.style.transform = `rotate(${hourAngle}deg)`;
+    if (this.minuteHand)
+      this.minuteHand.style.transform = `rotate(${minuteAngle}deg)`;
+    if (this.secondHand)
+      this.secondHand.style.transform = `rotate(${secondAngle}deg)`;
   }
 
   toggleSecondsHand() {
     if (!this.clock) return;
     if (this.hasSecondsHand) {
-      this.clock.removeEventListener(VIDE_ANALOG_CLOCK_EVENT.WHEEL, this.onWheel);
+      this.clock.removeEventListener(
+        VIDE_ANALOG_CLOCK_EVENT.WHEEL,
+        this.onWheel,
+      );
       if (this.secondHand) return;
-      this.secondHand = this.createChildElement('div', 'second-hand', ['hand', 'second']) as HTMLDivElement;
+      this.secondHand = this.createChildElement("div", "second-hand", [
+        "hand",
+        "second",
+      ]) as HTMLDivElement;
       this.clock.appendChild(this.secondHand);
     } else {
-      this.clock.addEventListener(VIDE_ANALOG_CLOCK_EVENT.WHEEL, this.onWheel.bind(this), { passive: false });
+      this.clock.addEventListener(
+        VIDE_ANALOG_CLOCK_EVENT.WHEEL,
+        this.onWheel.bind(this),
+        { passive: false },
+      );
       if (!this.secondHand) return;
       this.clock.removeChild(this.secondHand);
       this.secondHand = null;
@@ -79,23 +94,29 @@ export default class VideAnalogClock extends VideElement {
     const secondsToAdd = delta * DELTA_SECONDS;
     date.setSeconds(date.getSeconds() + secondsToAdd);
     this.time = +date / 1000;
-    document.dispatchEvent(new CustomEvent(VIDE_ANALOG_CLOCK_EVENT.MANUAL_TIME_UPDATE, {
-      detail: { time: this.time },
-      bubbles: true,
-      composed: true,
-    }));
+    document.dispatchEvent(
+      new CustomEvent(VIDE_ANALOG_CLOCK_EVENT.MANUAL_TIME_UPDATE, {
+        detail: { time: this.time },
+        bubbles: true,
+        composed: true,
+      }),
+    );
   }
 
   styles = css`
-    .clock {
+    .clock-container {
       position: fixed;
       bottom: 12px;
       right: 12px;
       width: 100px;
       height: 100px;
       border-radius: 50%;
-      background: #fff;
-      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+      background: #ccc;
+      border: 2px solid var(${GLOBAL_STYLE_VARIABLES.LIGHT_COLOR}, #000);
+    }
+    .clock {
+      width: 100px;
+      height: 100px;
       transform: rotate(-90deg);
     }
     .hand {
@@ -127,27 +148,39 @@ export default class VideAnalogClock extends VideElement {
       transition: transform 1s linear;
     }
   `;
-  
+
   render(): string {
     return html`
-      <div class="clock">
-        <div id="hour-hand" class="hand hour"></div>
-        <div id="minute-hand" class="hand minute"></div>
+      <div class="clock-container">
+        <vd-reflection-surface type="glass">
+          <div class="clock">
+            <div id="hour-hand" class="hand hour"></div>
+            <div id="minute-hand" class="hand minute"></div>
+          </div>
+        </vd-reflection-surface>
       </div>
     `;
   }
 
   connectedCallback(): void {
     super.connectedCallback();
-    this.hourHand = this.shadowRoot.querySelector(VIDE_ANALOG_CLOCK_SELECTORS.HOUR_HAND) as HTMLDivElement;
-    this.minuteHand = this.shadowRoot.querySelector(VIDE_ANALOG_CLOCK_SELECTORS.MINUTE_HAND) as HTMLDivElement;
+    this.hourHand = this.shadowRoot.querySelector(
+      VIDE_ANALOG_CLOCK_SELECTORS.HOUR_HAND,
+    ) as HTMLDivElement;
+    this.minuteHand = this.shadowRoot.querySelector(
+      VIDE_ANALOG_CLOCK_SELECTORS.MINUTE_HAND,
+    ) as HTMLDivElement;
     this.toggleSecondsHand();
     if (this.time) {
       this.updateHands();
     }
   }
 
-  attributeChangedCallback(name: string, oldValue: string, newValue: string): void {
+  attributeChangedCallback(
+    name: string,
+    oldValue: string,
+    newValue: string,
+  ): void {
     if (oldValue === newValue) return;
     switch (name) {
       case VIDE_ANALOG_CLOCK_ATTR.TIME:

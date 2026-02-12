@@ -55,6 +55,7 @@ export default class VideReflectionSurface extends VideShadowBox {
       );
       pointer-events: none;
       transform: translateX(calc(var(${GLOBAL_STYLE_VARIABLES.LIGHT_X}) * 15%));
+      z-index: 1;
     }
     :host([type="glass"])::after {
       content: "";
@@ -75,6 +76,7 @@ export default class VideReflectionSurface extends VideShadowBox {
       --glass-base: var(--current-bg, rgba(255, 255, 255, 0.1));
       --rx: calc(-var(${GLOBAL_STYLE_VARIABLES.LIGHT_X}) * 20px);
       --ry: calc(-var(${GLOBAL_STYLE_VARIABLES.LIGHT_Y}) * 20px);
+      display: block;
       position: relative;
       background-color: oklch(from var(--glass-base) l c h / 0.2) !important;
       background-image: linear-gradient(

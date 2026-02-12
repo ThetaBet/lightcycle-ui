@@ -19,11 +19,14 @@ export default class VideSkyLayer extends VideElement {
 
   styles = css`
     :host {
-      ${getSkyColors()}
       ${getphasesWeight()}
       ${getTopColors()}
       ${getBottomColors()}
       ${getSunInfos()}
+    }
+
+    .sky {
+      ${getSkyColors()}
       position: fixed;
       top: 0;
       left: 0;
@@ -177,12 +180,14 @@ export default class VideSkyLayer extends VideElement {
 
   render() {
     return html`
-      <div class="sun"></div>
-      <div class="stars">
-        <div class="star-layer"></div>
-        <div class="star-layer"></div>
-        <div class="star-layer"></div>
-        <div class="star-layer"></div>
+      <div class="sky">
+        <div class="sun"></div>
+        <div class="stars">
+          <div class="star-layer"></div>
+          <div class="star-layer"></div>
+          <div class="star-layer"></div>
+          <div class="star-layer"></div>
+        </div>
       </div>
       <slot></slot>
     `;

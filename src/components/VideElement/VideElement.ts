@@ -5,9 +5,11 @@ export default abstract class VideElement extends HTMLElement {
   static get observedAttributes(): string[] {
     return [];
   }
-  constructor() {
+  constructor(preventShadow = false) {
     super();
-    this.attachShadow({ mode: 'open' });
+    if (!preventShadow) {
+      this.attachShadow({ mode: 'open' });
+    }
   }
 
   createChildElement(tagName: string, id?: string, classNames?: Array<string>, attributes?: { [key: string]: string }): HTMLElement {
@@ -41,9 +43,13 @@ export default abstract class VideElement extends HTMLElement {
 
   connectedCallback(): void {
     const html = this.render();
-    const template = document.createElement('template');
-    template.innerHTML = html;
-    this.shadowRoot.appendChild(template.content.cloneNode(true));
+    if (this.shadowRoot) {
+      const template = document.createElement('template');
+      template.innerHTML = html;
+      this.shadowRoot.appendChild(template.content.cloneNode(true));
+    } else {
+      this.innerHTML = html;
+    }
     if (this.styles) {
       const sheet = new CSSStyleSheet();
       sheet.replaceSync(this.styles);

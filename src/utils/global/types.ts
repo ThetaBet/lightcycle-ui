@@ -15,3 +15,4 @@ export enum GLOBAL_STYLE_VARIABLES {
   LIGHT_COLOR = `--${PREFIX}-light-color`,
   ACCENT_COLOR = `--${PREFIX}-accent-color`,
 }
+

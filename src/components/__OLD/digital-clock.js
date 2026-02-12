@@ -104,22 +104,22 @@ export default class DigitalClock extends BaseComponent {
 
   setHtml() {
     return html`
-      <div class="digital-clock">
-        <digital-cypher class="hour" id="hFirst"></digital-cypher>
-        <digital-cypher class="hour" id="hSecond"></digital-cypher>
+      <div class="vd-digital-clock">
+        <vd-digital-cypher class="hour" id="hFirst"></vd-digital-cypher>
+        <vd-digital-cypher class="hour" id="hSecond"></vd-digital-cypher>
         <div class="separator">:</div>
-        <digital-cypher class="minute" id="mFirst"></digital-cypher>
-        <digital-cypher class="minute" id="mSecond"></digital-cypher>
+        <vd-digital-cypher class="minute" id="mFirst"></vd-digital-cypher>
+        <vd-digital-cypher class="minute" id="mSecond"></vd-digital-cypher>
         <div class="separator">:</div>
-        <digital-cypher class="second" id="sFirst"></digital-cypher>
-        <digital-cypher class="second" id="sSecond"></digital-cypher>
+        <vd-digital-cypher class="second" id="sFirst"></vd-digital-cypher>
+        <vd-digital-cypher class="second" id="sSecond"></vd-digital-cypher>
       </div>
     `;
   }
 
   setCss() {
     return css`
-      .digital-clock {
+      .vd-digital-clock {
         position: fixed;
         bottom: 12px;
         right: 12px;
@@ -140,7 +140,7 @@ export default class DigitalClock extends BaseComponent {
 
   connectedCallback() {
     super.connectedCallback();
-    this.clockContainer = this.shadowRoot.querySelector('.digital-clock');
+    this.clockContainer = this.shadowRoot.querySelector('.vd-digital-clock');
     this.FirstHourCypher = this.shadowRoot.querySelector('#hFirst');
     this.SecondHourCypher = this.shadowRoot.querySelector('#hSecond');
     this.FirstMinuteCypher = this.shadowRoot.querySelector('#mFirst');

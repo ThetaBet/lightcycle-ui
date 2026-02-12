@@ -145,6 +145,7 @@ export const getSkyColors = (): string => {
 
 export const getSunInfos = (): string => {
   return css`
+    --sun-elevation: pow(var(${GLOBAL_STYLE_VARIABLES.LIGHT_INTENSITY}, 0), 0.8);
     --sun-progress: calc((var(${GLOBAL_STYLE_VARIABLES.TIME}, 0) - 0.25) * 2);
     --sun-x: calc(5% + var(--sun-progress) * 90%);
     --sun-y: calc(85% - var(--sun-elevation) * 65%);

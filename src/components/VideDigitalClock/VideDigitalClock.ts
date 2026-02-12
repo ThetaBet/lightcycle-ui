@@ -111,21 +111,21 @@ export default class VideDigitalClock extends VideElement {
 
   render(): string {
     return html`
-      <div class="digital-clock">
-        <digital-cypher class="hour" id="hFirst"></digital-cypher>
-        <digital-cypher class="hour" id="hSecond"></digital-cypher>
+      <div class="vd-digital-clock">
+        <vd-digital-cypher class="hour" id="hFirst"></vd-digital-cypher>
+        <vd-digital-cypher class="hour" id="hSecond"></vd-digital-cypher>
         <div class="separator">:</div>
-        <digital-cypher class="minute" id="mFirst"></digital-cypher>
-        <digital-cypher class="minute" id="mSecond"></digital-cypher>
+        <vd-digital-cypher class="minute" id="mFirst"></vd-digital-cypher>
+        <vd-digital-cypher class="minute" id="mSecond"></vd-digital-cypher>
         <div class="separator">:</div>
-        <digital-cypher class="second" id="sFirst"></digital-cypher>
-        <digital-cypher class="second" id="sSecond"></digital-cypher>
+        <vd-digital-cypher class="second" id="sFirst"></vd-digital-cypher>
+        <vd-digital-cypher class="second" id="sSecond"></vd-digital-cypher>
       </div>
     `;
   }
 
   styles = css`
-    .digital-clock {
+    .vd-digital-clock {
       position: fixed;
       bottom: 12px;
       right: 12px;
@@ -151,7 +151,7 @@ export default class VideDigitalClock extends VideElement {
     this.secondMinuteCypher = this.shadowRoot.querySelector('#mSecond') as VideDigitalCypher;
     this.firstSecondCypher = this.shadowRoot.querySelector('#sFirst') as VideDigitalCypher;
     this.secondSecondCypher = this.shadowRoot.querySelector('#sSecond') as VideDigitalCypher;
-    this.clockContainer = this.shadowRoot.querySelector('.digital-clock') as HTMLDivElement;
+    this.clockContainer = this.shadowRoot.querySelector('.vd-digital-clock') as HTMLDivElement;
     this.updateTime();
   }
 

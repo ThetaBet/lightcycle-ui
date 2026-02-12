@@ -1,5 +1,5 @@
 /*
-  Placeholder for <sky-layer> CSS-only visualization component.
+  Placeholder for <vd-sky-layer> CSS-only visualization component.
 
   Rules:
   - Pure CSS rendering; consumes public CSS vars

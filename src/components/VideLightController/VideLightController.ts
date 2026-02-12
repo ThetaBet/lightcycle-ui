@@ -5,7 +5,7 @@ import { VideAnalogClock } from "../videAnalogClock";
 import { VideDigitalClock } from "../VideDigitalClock";
 import { VIDE_DIGITAL_CLOCK_MODE } from "../VideDigitalClock/types";
 import { VideElement } from "../VideElement";
-import { defaultFontConfig } from "./constants";
+import { ANALOG_CLOCK_TAG_NAME, defaultFontConfig, DIGITAL_CLOCK_TAG_NAME, MOBILE_MEDIA_QUERY } from "./constants";
 import { FontObjectAttribute, VIDE_LIGHT_CONTROLLER_ATTR, VIDE_LIGHT_CONTROLLER_CLOCK, VIDE_LIGHT_CONTROLLER_EVENT, VIDE_LIGHT_CONTROLLER_MODE } from "./types";
 
 export default class VideLightController extends VideElement {
@@ -18,10 +18,15 @@ export default class VideLightController extends VideElement {
       VIDE_LIGHT_CONTROLLER_ATTR.CLOCK,
     ];
   }
+  _mediaQuery: MediaQueryList | null = null;
 
   set globalTime(value: number) {
     document.documentElement.style.setProperty(
       GLOBAL_STYLE_VARIABLES.TIME,
+      value.toString(),
+    );
+    document.documentElement.setAttribute(
+      VIDE_LIGHT_CONTROLLER_ATTR.TIME,
       value.toString(),
     );
   }
@@ -269,14 +274,24 @@ export default class VideLightController extends VideElement {
     }
   }
 
+  autoSetClock() {
+    if (!this._mediaQuery) return;
+    if (this._mediaQuery.matches) {
+      this.changeClock(VIDE_LIGHT_CONTROLLER_CLOCK.DIGITAL);
+    } else {
+      this.changeClock(VIDE_LIGHT_CONTROLLER_CLOCK.ANALOG);
+    }
+  }
+
   async changeClock(newValue: string) {
     if (!newValue && this.clock) {
       this.removeClock();
+      this._mediaQuery = null;
       return;
     }
     if (newValue === VIDE_LIGHT_CONTROLLER_CLOCK.ANALOG) {
       this.removeClock();
-      this.clock = this.createChildElement('analog-clock') as VideAnalogClock;
+      this.clock = this.createChildElement(ANALOG_CLOCK_TAG_NAME) as VideAnalogClock;
       this.shadowRoot.appendChild(this.clock);
       await this.waitChildrenUpgraded();
       this.clock.hasSecondsHand = this.mode === VIDE_LIGHT_CONTROLLER_MODE.AUTO;
@@ -286,12 +301,18 @@ export default class VideLightController extends VideElement {
     }
     if (newValue === VIDE_LIGHT_CONTROLLER_CLOCK.DIGITAL) {
       this.removeClock();
-      this.clock = this.createChildElement('digital-clock') as VideDigitalClock;
+      this.clock = this.createChildElement(DIGITAL_CLOCK_TAG_NAME) as VideDigitalClock;
       this.shadowRoot.appendChild(this.clock);
       await this.waitChildrenUpgraded();
       this.clock.mode = this.mode === VIDE_LIGHT_CONTROLLER_MODE.AUTO ? VIDE_DIGITAL_CLOCK_MODE.AUTO : VIDE_DIGITAL_CLOCK_MODE.MANUAL;
       this.setClockTime();
       this.setTimeByListener();
+      return;
+    }
+    if (newValue === VIDE_LIGHT_CONTROLLER_CLOCK.AUTO) {
+      this._mediaQuery = window.matchMedia(MOBILE_MEDIA_QUERY);
+      this._mediaQuery.addEventListener(VIDE_LIGHT_CONTROLLER_EVENT.CHANGE, this.autoSetClock.bind(this));
+      this.autoSetClock();
       return;
     }
     throw new Error(`_VIDE_LightController: Unknown clock value "${newValue}"`);
@@ -308,6 +329,9 @@ export default class VideLightController extends VideElement {
     this.stop();
     this.removeClock();
     this.removeListeners();
+    if (this._mediaQuery) {
+      this._mediaQuery.removeEventListener(VIDE_LIGHT_CONTROLLER_EVENT.CHANGE, this.autoSetClock.bind(this));
+    }
   }
   
 

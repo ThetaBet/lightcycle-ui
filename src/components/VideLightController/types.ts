@@ -17,11 +17,13 @@ export enum VIDE_LIGHT_CONTROLLER_MODE {
 export enum VIDE_LIGHT_CONTROLLER_CLOCK {
   ANALOG = 'analog',
   DIGITAL = 'digital',
+  AUTO = 'auto',
 }
 
 export enum VIDE_LIGHT_CONTROLLER_EVENT {
   TIME_CHANGE = `${PREFIX}:timechange`,
   MANUAL_TIME_UPDATE = `${PREFIX}:manualtimeupdate`,
+  CHANGE = 'change'
 }
 
 export interface FontObjectAttribute {

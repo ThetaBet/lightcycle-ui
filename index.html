@@ -31,7 +31,7 @@
       margin: 20px;
     }
 
-    reflection-surface {
+    vd-reflection-surface {
       display: block;
       width: 300px;
       height: 200px;
@@ -43,6 +43,39 @@
       content: 'Time: ' var(--vd-time, '0');
     }
   </style>
+      <style>
+        @keyframes fadeIn {
+          from {
+            opacity: 0;
+          }
+      
+          to {
+            opacity: 1;
+          }
+        }
+      
+        @keyframes fadeOut {
+          from {
+            opacity: 1;
+          }
+      
+          to {
+            opacity: 0;
+          }
+        }
+      
+        .fade-in {
+          opacity: 0;
+          animation: fadeIn 1.2s ease forwards;
+        }
+      
+        .unmounting .fade-in {
+          animation: fadeOut 1.2s ease forwards;
+        }
+        vd-conditional-box:not(:defined) {
+          visibility: hidden;
+        }
+      </style>
     <script type="module">
       import './src/index.ts';
 
@@ -52,30 +85,42 @@
     </script>
 </head>
 <body>
-  <sky-layer>
-      <div class="demo">
-        <div class="info time-display">
-          <reflection-surface style="background-color: yellow;" type="glass"  reflectivity="0.5" roughness="0.2">
-            <h2>Glass Surface Test</h2>
-            <p>Reflectivity: 0.5, Roughness: 0.2</p>
-          </reflection-surface>
+  <vd-sky-layer>
+        <div class="demo">
+          <vd-conditional-box low-light-threshold="0.2" high-light-threshold="0.8" mode="light">
+          <div class="info time-display fade-in">
+            <vd-reflection-surface style="background-color: yellow;" type="glass" reflectivity="0.5" roughness="0.2">
+              <h2>Glass Surface Test</h2>
+              <p>Reflectivity: 0.5, Roughness: 0.2</p>
+            </vd-reflection-surface>
+          </div>
+          </vd-conditional-box>
+        
+          <div class="info">
+            <vd-reflection-surface style="background-color: yellow;" type="matte" reflectivity="0.8" roughness="0.1">
+              <h2>Matte Surface Test</h2>
+              <p>Reflectivity: 0.8, Roughness: 0.1</p>
+            </vd-reflection-surface>
+          </div>
+        
+          <div class="info">
+            <vd-reflection-surface style="background-color: yellow;" type="lucid" reflectivity="0.8" roughness="0.1">
+              <h2>Lucid Surface Test</h2>
+              <p>Reflectivity: 0.8, Roughness: 0.1</p>
+            </vd-reflection-surface>
+          </div>
         </div>
-      
-        <div class="info">
-          <reflection-surface style="background-color: yellow;" type="matte" reflectivity="0.8" roughness="0.1">
-            <h2>Matte Surface Test</h2>
-            <p>Reflectivity: 0.8, Roughness: 0.1</p>
-          </reflection-surface>
-        </div>
+  <vd-conditional-box low-light-threshold="0.2" high-light-threshold="0.8" mode="light">
+    <div class="fade-in"
+      style="width: 200px; height: 200px; background-color: red; display: flex; justify-content: center; align-items: center;">
+      <h2>Conditional Box</h2>
+    </div>
+  </vd-conditional-box>
+  </vd-sky-layer>
 
-        <div class="info">
-        <reflection-surface style="background-color: yellow;" type="lucid" reflectivity="0.8" roughness="0.1">
-          <h2>Lucid Surface Test</h2>
-          <p>Reflectivity: 0.8, Roughness: 0.1</p>
-        </reflection-surface>
-        </div>
-      </div>
-  </sky-layer>
-  <light-controller mode="manual" tick="1000" clock="analog"></light-controller>
+  <vd-light-controller mode="manual" tick="1000" clock="auto"></vd-light-controller>
+
+
+  </vd-conditional-box>
 </body>
 </html>

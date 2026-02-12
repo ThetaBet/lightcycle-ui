@@ -270,8 +270,8 @@ export class LightController extends BaseComponent {
     }
     if (newClock === ATTRIBUTES_VALUES.CLOCK.ANALOG) {
       this.removeClock();
-      await customElements.whenDefined('analog-clock');
-      this.clock = document.createElement('analog-clock');
+      await customElements.whenDefined('vd-analog-clock');
+      this.clock = document.createElement('vd-analog-clock');
       this.shadowRoot.appendChild(this.clock);
       await new Promise(r => requestAnimationFrame(r));
       this.clock.setAttribute(ATTRIBUTES.HAS_SECOND_HAND, this.getAttribute(ATTRIBUTES.MODE) === ATTRIBUTES_VALUES.MODE.AUTO ? 'true' : 'false');
@@ -281,8 +281,8 @@ export class LightController extends BaseComponent {
     }
     if (newClock === ATTRIBUTES_VALUES.CLOCK.DIGITAL) {
       this.removeClock();
-      await customElements.whenDefined('digital-clock');
-      this.clock = document.createElement('digital-clock');
+      await customElements.whenDefined('vd-digital-clock');
+      this.clock = document.createElement('vd-digital-clock');
       this.shadowRoot.appendChild(this.clock);
       await new Promise(r => requestAnimationFrame(r));
       this.clock.mode = this.mode;
