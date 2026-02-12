@@ -63,14 +63,21 @@
             opacity: 0;
           }
         }
+
+        .grid {
+          display: grid;
+          grid-template-areas: "stack";
+
+        }
       
         .fade-in {
           opacity: 0;
-          animation: fadeIn 1.2s ease forwards;
+          animation: fadeIn 3s ease forwards;
+          grid-area: stack;
         }
       
         .unmounting .fade-in {
-          animation: fadeOut 1.2s ease forwards;
+          animation: fadeOut .5s ease forwards;
         }
         vd-conditional-box:not(:defined) {
           visibility: hidden;
@@ -110,12 +117,22 @@
             </vd-reflection-surface>
           </div>
         </div>
-  <vd-conditional-box low-light-threshold="0.2" high-light-threshold="0.8" mode="light">
-    <div class="fade-in"
-      style="width: 200px; height: 200px; background-color: red; display: flex; justify-content: center; align-items: center;">
-      <h2>Conditional Box</h2>
-    </div>
-  </vd-conditional-box>
+        <div class="grid">
+          <vd-conditional-box mode="light" low-light-threshold="0.3" high-light-threshold="0.7">
+            <div class="hero fade-in fade-out">
+              <vd-reflection-surface type="glass">
+                <h1>Ciao</h1>
+              </vd-reflection-surface>
+            </div>
+          </vd-conditional-box>
+          <vd-conditional-box mode="dark" low-light-threshold="0.3" high-light-threshold="0.7">
+            <div class="hero fade-in fade-out">
+              <vd-reflection-surface type="glass">
+                <h1>Buonanotte</h1>
+              </vd-reflection-surface>
+            </div>
+          </vd-conditional-box>
+        </div>
   </vd-sky-layer>
 
   <vd-light-controller mode="manual" tick="1000" clock="auto"></vd-light-controller>

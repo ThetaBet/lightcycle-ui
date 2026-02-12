@@ -14,7 +14,9 @@ export default class VideoConditionalBox extends VideElement {
   private _observer: MutationObserver;
   private _container: HTMLDivElement;
   private _internalTemplate: HTMLTemplateElement;
-  private _contentLoaded = false;
+  private _contentLoaded: boolean = false;
+  private _pendingShouldShow: boolean | null = null;
+  private _isTransitioning: boolean = false;
   constructor() {
     super(true);
     this._container = this.createChildElement(
@@ -76,18 +78,30 @@ export default class VideoConditionalBox extends VideElement {
     const shouldShow = this.mode === VIDE_CONDITIONAL_BOX_MODE.LIGHT
       ? newValue >= this.lowLightThreshold && newValue <= this.highLightThreshold
       : newValue < this.lowLightThreshold || newValue > this.highLightThreshold;
+    
+    if (this._isTransitioning) {
+      this._pendingShouldShow = shouldShow;
+      return;
+    }
+    
     if (shouldShow && this.status === VIDE_CONDITIONAL_BOX_STATUS.UNMOUNTED) {
       this.mount();
+      return;
     }
     if (!shouldShow && this.status === VIDE_CONDITIONAL_BOX_STATUS.MOUNTED) {
       this.unmount();
+      return;
     }
   }
 
   async mount() {
     //TODO: skip infinite animations
     if (this.status === VIDE_CONDITIONAL_BOX_STATUS.MOUNTED || this.status === VIDE_CONDITIONAL_BOX_STATUS.MOUNTING) return;
-    if (!this._internalTemplate) return
+    if (!this._internalTemplate) return;
+    
+    this._isTransitioning = true;
+    this._pendingShouldShow = null;
+    
     this.status = VIDE_CONDITIONAL_BOX_STATUS.MOUNTING;
     this._container.innerHTML = ``;
     this._container.classList.remove("unmounted");
@@ -99,16 +113,26 @@ export default class VideoConditionalBox extends VideElement {
       const promises = await Promise.all(animations.map(animation => animation.finished));
       await Promise.all(promises);
       this.status = VIDE_CONDITIONAL_BOX_STATUS.MOUNTED;
-      return
+      this._container.classList.remove("mounting");
+      this._container.classList.add("mounted");
+      this._isTransitioning = false;
+      this._handlePendingState();
+      return;
     }
     this.status = VIDE_CONDITIONAL_BOX_STATUS.MOUNTED;
     this._container.classList.remove("mounting");
     this._container.classList.add("mounted");
+    this._isTransitioning = false;
+    this._handlePendingState();
   }
 
   async unmount() {
     //TODO: skip infinite animations
     if (this.status === VIDE_CONDITIONAL_BOX_STATUS.UNMOUNTED || this.status === VIDE_CONDITIONAL_BOX_STATUS.UNMOUNTING) return;
+    
+    this._isTransitioning = true;
+    this._pendingShouldShow = null;
+    
     this.status = VIDE_CONDITIONAL_BOX_STATUS.UNMOUNTING;
     this._container.classList.remove("mounted");
     this._container.classList.remove("mounting");
@@ -123,9 +147,26 @@ export default class VideoConditionalBox extends VideElement {
     this._container.classList.add("unmounted");
     this._container.innerHTML = ``;
     this.status = VIDE_CONDITIONAL_BOX_STATUS.UNMOUNTED;
+    this._isTransitioning = false;
+    this._handlePendingState();
+  }
+
+  private _handlePendingState() {
+    if (this._pendingShouldShow === null) return;
+    
+    const shouldShow = this._pendingShouldShow;
+    this._pendingShouldShow = null;
+    
+    if (shouldShow && this.status === VIDE_CONDITIONAL_BOX_STATUS.UNMOUNTED) {
+      this.mount();
+    } else if (!shouldShow && this.status === VIDE_CONDITIONAL_BOX_STATUS.MOUNTED) {
+      this.unmount();
+    }
   }
 
   loadContent() {
+    this.style.display = 'contents';
+    this._container.style.display = 'contents';
     if (this._contentLoaded) return;
     while (this.childNodes.length > 0) {
       this._internalTemplate.content.appendChild(this.childNodes[0]);
@@ -149,7 +190,7 @@ export default class VideoConditionalBox extends VideElement {
   }
 
   connectedCallback(): void {
-    // super.connectedCallback();
+    super.connectedCallback();
     this.loadContent();
     this.init();
     this.requestUpdate(this.time);

@@ -42,13 +42,11 @@ export default abstract class VideElement extends HTMLElement {
   }
 
   connectedCallback(): void {
-    const html = this.render();
     if (this.shadowRoot) {
+      const html = this.render();
       const template = document.createElement('template');
       template.innerHTML = html;
       this.shadowRoot.appendChild(template.content.cloneNode(true));
-    } else {
-      this.innerHTML = html;
     }
     if (this.styles) {
       const sheet = new CSSStyleSheet();

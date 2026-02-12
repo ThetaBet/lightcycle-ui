@@ -1,6 +1,6 @@
 {
   "name": "vide",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "type": "module",
   "description": "Visual Interface Dynamic Engine. A CSS-first, time-driven UI lighting system.",
   "main": "dist/vide.umd.js",
